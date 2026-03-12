@@ -16,26 +16,26 @@ class GildedRose {
 
     public void updateQuality() {
         for (int i = 0; i < items.length; i++) {
-            this.updateQuality(items[i]);
+            this.updateItem(items[i]);
         }
     }
 
-    public void updateQuality(Item item){
+    public void updateItem(Item item){
         switch (item.name){
             case AGED_BRIE :
-                this.updateQualityAgedBrie(item);
+                this.updateAgedBrie(item);
                 break;
             case BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT:
-                this.updateQualityBackstage(item);
+                this.updateBackstage(item);
                 break;
             case SULFURAS_HAND_OF_RAGNAROS :
                 break;
             default:
-                this.updateQualityDefaultItem(item);
+                this.updateDefaultItem(item);
         }
     }
 
-    public void updateQualityAgedBrie(Item item){
+    public void updateAgedBrie(Item item){
         item.sellIn--;
         if(item.quality < FIFTY){
             item.quality++;
@@ -45,7 +45,7 @@ class GildedRose {
         }
     }
 
-    public void updateQualityBackstage(Item item){
+    public void updateBackstage(Item item){
         item.sellIn--;
         if(item.sellIn < ZERO){
             item.quality = 0;
@@ -62,7 +62,7 @@ class GildedRose {
         }
     }
 
-    public void updateQualityDefaultItem(Item item){
+    public void updateDefaultItem(Item item){
         if (item.quality > ZERO) {
             item.quality--;
         }
