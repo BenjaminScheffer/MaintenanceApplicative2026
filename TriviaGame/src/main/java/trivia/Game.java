@@ -3,23 +3,15 @@ package trivia;
 import printer.ConsolePrinter;
 import printer.Printer;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Game implements IGame {
    public static final int NB_QUESTION = 50;
-   public static final String POP = "Pop";
-   public static final String SCIENCE = "Science";
-   public static final String SPORTS = "Sports";
-   public static final String ROCK = "Rock";
    public static final int BOARD_SIZE = 12;
+   public static final int WINNING_PURSE = 6;
 
+   private final Map<Category, LinkedList<String>> questionsByCategory = new HashMap<>();
    private final List<Player> players = new ArrayList<>();
-   private final LinkedList<String> popQuestions = new LinkedList<>();
-   private final LinkedList<String> scienceQuestions = new LinkedList<>();
-   private final LinkedList<String> sportsQuestions = new LinkedList<>();
-   private final LinkedList<String> rockQuestions = new LinkedList<>();
 
    private int currentPlayerIndex = 0;
    private boolean isGettingOutOfPenaltyBox;
@@ -30,11 +22,12 @@ public class Game implements IGame {
    }
 
    private void initQuestions() {
-      for (int i = 0; i < NB_QUESTION; i++) {
-         popQuestions.addLast("Pop Question " + i);
-         scienceQuestions.addLast("Science Question " + i);
-         sportsQuestions.addLast("Sports Question " + i);
-         rockQuestions.addLast("Rock Question " + i);
+      for (Category category : Category.values()) {
+         LinkedList<String> questions = new LinkedList<>();
+         for (int i = 0; i < NB_QUESTION; i++) {
+            questions.addLast(category.getLabel() + " Question " + i);
+         }
+         questionsByCategory.put(category, questions);
       }
    }
 
@@ -75,36 +68,11 @@ public class Game implements IGame {
    }
 
    public void askCurrentQuestion() {
-      printer.print("The category is " + currentCategory());
-      askQuestion();
-   }
+      Category category = Category.fromPosition(getCurrentPlayer().getPlace());
+      printer.print("The category is " + category.getLabel());
 
-   private void askQuestion() {
-      switch(currentCategory()) {
-         case POP:
-            printer.print(popQuestions.removeFirst());
-            break;
-         case SCIENCE:
-            printer.print(scienceQuestions.removeFirst());
-            break;
-         case SPORTS:
-            printer.print(sportsQuestions.removeFirst());
-            break;
-         default:
-            printer.print(rockQuestions.removeFirst());
-            break;
-      }
-   }
-
-
-   private String currentCategory() {
-      int position = (getCurrentPlayer().getPlace() - 1) % 4;
-      switch (position) {
-         case 0: return POP;
-         case 1: return SCIENCE;
-         case 2: return  SPORTS;
-         default: return ROCK;
-      }
+      String question = questionsByCategory.get(category).removeFirst();
+      printer.print(question);
    }
 
    public boolean handleCorrectAnswer() {
@@ -140,7 +108,7 @@ public class Game implements IGame {
    }
 
    private boolean didPlayerWin() {
-      return !(getCurrentPlayer().getPurse() == 6);
+      return !(getCurrentPlayer().getPurse() == WINNING_PURSE);
    }
 
 }
