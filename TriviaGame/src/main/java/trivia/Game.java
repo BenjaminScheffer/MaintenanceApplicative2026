@@ -14,6 +14,7 @@ public class Game implements IGame {
    public static final String SCIENCE = "Science";
    public static final String SPORTS = "Sports";
    public static final String ROCK = "Rock";
+   public static final int BOARD_SIZE = 12;
 
    ArrayList players = new ArrayList();
    int[] places = new int[6];
@@ -89,8 +90,7 @@ public class Game implements IGame {
    }
 
    public void movePlayer(int roll){
-      places[currentPlayer] = places[currentPlayer] + roll;
-      if (places[currentPlayer] > 12) places[currentPlayer] = places[currentPlayer] - 12;
+      places[currentPlayer] = ((places[currentPlayer] + roll - 1) % BOARD_SIZE) + 1;
       printer.print(players.get(currentPlayer)
               + "'s new location is "
               + places[currentPlayer]);
