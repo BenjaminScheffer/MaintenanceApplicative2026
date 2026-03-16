@@ -63,35 +63,37 @@ public class Game implements IGame {
       printer.print("They have rolled a " + roll);
 
       if (inPenaltyBox[currentPlayer]) {
-         if (roll % 2 != 0) {
-            isGettingOutOfPenaltyBox = true;
-
-            printer.print(players.get(currentPlayer) + " is getting out of the penalty box");
-            places[currentPlayer] = places[currentPlayer] + roll;
-            if (places[currentPlayer] > 12) places[currentPlayer] = places[currentPlayer] - 12;
-
-            printer.print(players.get(currentPlayer)
-                               + "'s new location is "
-                               + places[currentPlayer]);
-            printer.print("The category is " + currentCategory());
-            askQuestion();
-         } else {
-            printer.print(players.get(currentPlayer) + " is not getting out of the penalty box");
-            isGettingOutOfPenaltyBox = false;
-         }
-
-      } else {
-
-         places[currentPlayer] = places[currentPlayer] + roll;
-         if (places[currentPlayer] > 12) places[currentPlayer] = places[currentPlayer] - 12;
-
-         printer.print(players.get(currentPlayer)
-                            + "'s new location is "
-                            + places[currentPlayer]);
-         printer.print("The category is " + currentCategory());
-         askQuestion();
+         handlePenaltyBox(roll);
+         return;
       }
 
+      movePlayer(roll);
+      askCurrentQuestion();
+
+   }
+   private void handlePenaltyBox(int roll) {
+      if (roll % 2 != 0) {
+         isGettingOutOfPenaltyBox = true;
+         printer.print(players.get(currentPlayer) + " is getting out of the penalty box");
+         movePlayer(roll);
+         askCurrentQuestion();
+      } else {
+         printer.print(players.get(currentPlayer) + " is not getting out of the penalty box");
+         isGettingOutOfPenaltyBox = false;
+      }
+   }
+
+   public void askCurrentQuestion(){
+      printer.print("The category is " + currentCategory());
+      askQuestion();
+   }
+
+   public void movePlayer(int roll){
+      places[currentPlayer] = places[currentPlayer] + roll;
+      if (places[currentPlayer] > 12) places[currentPlayer] = places[currentPlayer] - 12;
+      printer.print(players.get(currentPlayer)
+              + "'s new location is "
+              + places[currentPlayer]);
    }
 
    private void askQuestion() {
