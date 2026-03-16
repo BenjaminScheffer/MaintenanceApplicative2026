@@ -9,6 +9,12 @@ import java.util.LinkedList;
 // REFACTOR ME
 public class Game implements IGame {
    public static final int NB_QUESTION = 50;
+
+   public static final String POP = "Pop";
+   public static final String SCIENCE = "Science";
+   public static final String SPORTS = "Sports";
+   public static final String ROCK = "Rock";
+
    ArrayList players = new ArrayList();
    int[] places = new int[6];
    int[] purses = new int[6];
@@ -90,13 +96,13 @@ public class Game implements IGame {
 
    private void askQuestion() {
       switch(currentCategory()) {
-         case "Pop" :
+         case POP:
             printer.print(popQuestions.removeFirst().toString());
             break;
-         case "Science":
+         case SCIENCE:
             printer.print(scienceQuestions.removeFirst().toString());
             break;
-         case "Sports":
+         case SPORTS:
             printer.print(sportsQuestions.removeFirst().toString());
             break;
          default:
@@ -109,10 +115,10 @@ public class Game implements IGame {
    private String currentCategory() {
       int position = (places[currentPlayer] - 1) % 4;
       switch (position) {
-         case 0: return "Pop";
-         case 1: return "Science";
-         case 2: return  "Sports";
-         default: return "Rock";
+         case 0: return POP;
+         case 1: return SCIENCE;
+         case 2: return  SPORTS;
+         default: return ROCK;
       }
    }
 
