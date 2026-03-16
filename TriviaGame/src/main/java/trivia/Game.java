@@ -1,5 +1,8 @@
 package trivia;
 
+import printer.ConsolePrinter;
+import printer.Printer;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -18,6 +21,8 @@ public class Game implements IGame {
 
    int currentPlayer = 0;
    boolean isGettingOutOfPenaltyBox;
+
+   Printer printer = new ConsolePrinter();
 
    public Game() {
       initQuestion();
@@ -38,8 +43,8 @@ public class Game implements IGame {
       inPenaltyBox[howManyPlayers()] = false;
       players.add(playerName);
 
-      System.out.println(playerName + " was added");
-      System.out.println("They are player number " + players.size());
+      printer.print(playerName + " was added");
+      printer.print("They are player number " + players.size());
       return true;
    }
 
@@ -48,24 +53,24 @@ public class Game implements IGame {
    }
 
    public void roll(int roll) {
-      System.out.println(players.get(currentPlayer) + " is the current player");
-      System.out.println("They have rolled a " + roll);
+      printer.print(players.get(currentPlayer) + " is the current player");
+      printer.print("They have rolled a " + roll);
 
       if (inPenaltyBox[currentPlayer]) {
          if (roll % 2 != 0) {
             isGettingOutOfPenaltyBox = true;
 
-            System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
+            printer.print(players.get(currentPlayer) + " is getting out of the penalty box");
             places[currentPlayer] = places[currentPlayer] + roll;
             if (places[currentPlayer] > 12) places[currentPlayer] = places[currentPlayer] - 12;
 
-            System.out.println(players.get(currentPlayer)
+            printer.print(players.get(currentPlayer)
                                + "'s new location is "
                                + places[currentPlayer]);
-            System.out.println("The category is " + currentCategory());
+            printer.print("The category is " + currentCategory());
             askQuestion();
          } else {
-            System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
+            printer.print(players.get(currentPlayer) + " is not getting out of the penalty box");
             isGettingOutOfPenaltyBox = false;
          }
 
@@ -74,10 +79,10 @@ public class Game implements IGame {
          places[currentPlayer] = places[currentPlayer] + roll;
          if (places[currentPlayer] > 12) places[currentPlayer] = places[currentPlayer] - 12;
 
-         System.out.println(players.get(currentPlayer)
+         printer.print(players.get(currentPlayer)
                             + "'s new location is "
                             + places[currentPlayer]);
-         System.out.println("The category is " + currentCategory());
+         printer.print("The category is " + currentCategory());
          askQuestion();
       }
 
@@ -86,16 +91,16 @@ public class Game implements IGame {
    private void askQuestion() {
       switch(currentCategory()) {
          case "Pop" :
-            System.out.println(popQuestions.removeFirst());
+            printer.print(popQuestions.removeFirst().toString());
             break;
          case "Science":
-            System.out.println(scienceQuestions.removeFirst());
+            printer.print(scienceQuestions.removeFirst().toString());
             break;
          case "Sports":
-            System.out.println(sportsQuestions.removeFirst());
+            printer.print(sportsQuestions.removeFirst().toString());
             break;
          default:
-            System.out.println(rockQuestions.removeFirst());
+            printer.print(rockQuestions.removeFirst().toString());
             break;
       }
    }
@@ -118,9 +123,9 @@ public class Game implements IGame {
          return true;
       }
 
-      System.out.println("Answer was correct!!!!");
+      printer.print("Answer was correct!!!!");
       purses[currentPlayer]++;
-      System.out.println(players.get(currentPlayer)
+      printer.print(players.get(currentPlayer)
               + " now has "
               + purses[currentPlayer]
               + " Gold Coins.");
@@ -139,8 +144,8 @@ public class Game implements IGame {
    }
 
    public boolean wrongAnswer() {
-      System.out.println("Question was incorrectly answered");
-      System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
+      printer.print("Question was incorrectly answered");
+      printer.print(players.get(currentPlayer) + " was sent to the penalty box");
       inPenaltyBox[currentPlayer] = true;
 
       nextPlayer();
