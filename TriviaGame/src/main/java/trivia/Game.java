@@ -5,6 +5,7 @@ import java.util.LinkedList;
 
 // REFACTOR ME
 public class Game implements IGame {
+   public static final int NB_QUESTION = 50;
    ArrayList players = new ArrayList();
    int[] places = new int[6];
    int[] purses = new int[6];
@@ -19,16 +20,16 @@ public class Game implements IGame {
    boolean isGettingOutOfPenaltyBox;
 
    public Game() {
-      for (int i = 0; i < 50; i++) {
-         popQuestions.addLast("Pop Question " + i);
-         scienceQuestions.addLast(("Science Question " + i));
-         sportsQuestions.addLast(("Sports Question " + i));
-         rockQuestions.addLast(createRockQuestion(i));
-      }
+      initQuestion();
    }
 
-   public String createRockQuestion(int index) {
-      return "Rock Question " + index;
+   public void initQuestion(){
+      for (int i = 0; i < NB_QUESTION; i++) {
+         popQuestions.addLast("Pop Question " + i);
+         scienceQuestions.addLast("Science Question " + i);
+         sportsQuestions.addLast("Sports Question " + i);
+         rockQuestions.addLast( "Rock Question " + i);
+      }
    }
 
    public boolean isPlayable() {
