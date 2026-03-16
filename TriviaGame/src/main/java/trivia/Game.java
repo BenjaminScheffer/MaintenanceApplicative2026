@@ -16,7 +16,7 @@ public class Game implements IGame {
    public static final String ROCK = "Rock";
    public static final int BOARD_SIZE = 12;
 
-   ArrayList players = new ArrayList();
+   ArrayList<Player> players = new ArrayList<Player>();
    int[] places = new int[6];
    int[] purses = new int[6];
    boolean[] inPenaltyBox = new boolean[6];
@@ -48,7 +48,7 @@ public class Game implements IGame {
       places[howManyPlayers()] = 1;
       purses[howManyPlayers()] = 0;
       inPenaltyBox[howManyPlayers()] = false;
-      players.add(playerName);
+      players.add(new Player(playerName));
 
       printer.print(playerName + " was added");
       printer.print("They are player number " + players.size());
