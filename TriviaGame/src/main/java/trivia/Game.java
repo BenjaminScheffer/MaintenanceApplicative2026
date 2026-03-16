@@ -59,6 +59,10 @@ public class Game implements IGame {
       } else {
          movePlayerAndAsk(player, roll);
       }
+      if(isGettingOutOfPenaltyBox){
+         isGettingOutOfPenaltyBox = false;
+         player.setInPenaltyBox(false);
+      }
    }
 
    private void movePlayerAndAsk(Player player, int roll) {
