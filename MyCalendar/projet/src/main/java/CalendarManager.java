@@ -29,23 +29,9 @@ public class CalendarManager {
     }
 
     public List<Event> eventsDansPeriode(LocalDateTime debut, LocalDateTime fin) {
-        List<Event> result = new ArrayList<>();
-        for (Event e : events) {
-            if (e instanceof EvenementPeriodique) {
-                EvenementPeriodique event = (EvenementPeriodique) e;
-                LocalDateTime temp = e.dateDebut().dateDebut();
-                while (temp.isBefore(fin)) {
-                    if (!temp.isBefore(debut)) {
-                        result.add(e);
-                        break;
-                    }
-                    temp = temp.plusDays(event.frequenceJours().frequenceJours());
-                }
-            } else if (!e.dateDebut().dateDebut().isBefore(debut) && !e.dateDebut().dateDebut().isAfter(fin)) {
-                result.add(e);
-            }
-        }
-        return result;
+        return events.stream()
+                .filter(e -> e.estDansPeriode(new DateEvenement(debut), new DateEvenement(fin)))
+                .toList();
     }
 
     public boolean conflit(Event e1, Event e2) {
