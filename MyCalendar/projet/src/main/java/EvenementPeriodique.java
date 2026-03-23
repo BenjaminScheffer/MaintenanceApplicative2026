@@ -32,4 +32,21 @@ public class EvenementPeriodique implements Event{
     public String description() {
         return "Événement périodique : " + titre + " tous les " + frequence + " jours";
     }
+
+    @Override
+    public boolean estDansPeriode(DateEvenement debut, DateEvenement fin) {
+        var temp = dateDebut.dateDebut();
+        while (!temp.isAfter(fin.dateDebut())) {
+            if (!temp.isBefore(debut.dateDebut())) {
+                return true;
+            }
+            temp = temp.plusDays(frequence.frequenceJours());
+        }
+        return false;
+    }
+
+    @Override
+    public boolean estEnConflit(Event autre) {
+        return false;
+    }
 }

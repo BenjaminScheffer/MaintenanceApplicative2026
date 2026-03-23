@@ -28,6 +28,18 @@ public class Reunion implements Event{
     public TitreEvenement titre() { return titre; }
 
     @Override
+    public boolean estDansPeriode(DateEvenement debut, DateEvenement fin) {
+        return !dateDebut.dateDebut().isBefore(debut.dateDebut())
+                && !dateDebut.dateDebut().isAfter(fin.dateDebut());
+    }
+
+    @Override
+    public boolean estEnConflit(Event autre) {
+        return dateDebut.dateDebut().isBefore(autre.dateDebut().dateDebut().plusMinutes(autre.duree().dureeMinutes()))
+                && dateDebut.dateDebut().plusMinutes(duree.dureeMinutes()).isAfter(autre.dateDebut().dateDebut());
+    }
+
+    @Override
     public String description() {
         return "Réunion : " + titre + " à " + lieu + " avec " + participants;
     }
