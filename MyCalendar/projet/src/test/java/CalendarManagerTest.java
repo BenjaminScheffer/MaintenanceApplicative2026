@@ -15,7 +15,7 @@ class CalendarManagerTest {
                 ,30,"CHEZ MOI","BOB",0);
 
         assertEquals(1,calendarManager.events.size());
-        assertEquals("REUNION",calendarManager.events.getFirst().type);
+        assertTrue(calendarManager.events.getFirst() instanceof Reunion);
     }
 
     @Test

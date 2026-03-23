@@ -1,4 +1,4 @@
-public record Propietaire(String proprietaire) {
+public record Proprietaire(String proprietaire) {
     @Override
     public String toString() {
         return proprietaire;

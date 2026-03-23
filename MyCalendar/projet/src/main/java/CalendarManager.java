@@ -11,23 +11,35 @@ public class CalendarManager {
 
     public void ajouterEvent(String type, String title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes,
                              String lieu, String participants, int frequenceJours) {
-        Event e = new Event(type, new TitreEvenement(title), new Propietaire(proprietaire), new DateEvenement(dateDebut), new DureeEvenement(dureeMinutes), new Lieu(lieu), new Participants(participants), new FrequenceJours(frequenceJours));
+        Event e = null;
+        switch(type){
+            case "REUNION":
+                e = new Reunion(new TitreEvenement(title), new Proprietaire(proprietaire), new DateEvenement(dateDebut), new DureeEvenement(dureeMinutes), new Lieu(lieu), new Participants(participants));
+                break;
+            case "PERIODIQUE":
+                e = new EvenementPeriodique(new TitreEvenement(title), new Proprietaire(proprietaire), new DateEvenement(dateDebut), new DureeEvenement(dureeMinutes),new FrequenceJours(frequenceJours));
+                break;
+            case "RDV_PERSONNEL":
+                e = new RendezVousPersonnel(new TitreEvenement(title), new Proprietaire(proprietaire), new DateEvenement(dateDebut), new DureeEvenement(dureeMinutes));
+                break;
+        }
         events.add(e);
     }
 
     public List<Event> eventsDansPeriode(LocalDateTime debut, LocalDateTime fin) {
         List<Event> result = new ArrayList<>();
         for (Event e : events) {
-            if (e.type.equals("PERIODIQUE")) {
-                LocalDateTime temp = e.dateDebut.dateDebut();
+            if (e instanceof EvenementPeriodique) {
+                EvenementPeriodique event = (EvenementPeriodique) e;
+                LocalDateTime temp = e.dateDebut().dateDebut();
                 while (temp.isBefore(fin)) {
                     if (!temp.isBefore(debut)) {
                         result.add(e);
                         break;
                     }
-                    temp = temp.plusDays(e.frequenceJours.frequenceJours());
+                    temp = temp.plusDays(event.frequenceJours().frequenceJours());
                 }
-            } else if (!e.dateDebut.dateDebut().isBefore(debut) && !e.dateDebut.dateDebut().isAfter(fin)) {
+            } else if (!e.dateDebut().dateDebut().isBefore(debut) && !e.dateDebut().dateDebut().isAfter(fin)) {
                 result.add(e);
             }
         }
@@ -35,14 +47,14 @@ public class CalendarManager {
     }
 
     public boolean conflit(Event e1, Event e2) {
-        LocalDateTime fin1 = e1.dateDebut.dateDebut().plusMinutes(e1.dureeMinutes.dureeMinutes());
-        LocalDateTime fin2 = e2.dateDebut.dateDebut().plusMinutes(e2.dureeMinutes.dureeMinutes());
+        LocalDateTime fin1 = e1.dateDebut().dateDebut().plusMinutes(e1.duree().dureeMinutes());
+        LocalDateTime fin2 = e2.dateDebut().dateDebut().plusMinutes(e2.duree().dureeMinutes());
 
-        if (e1.type.equals("PERIODIQUE") || e2.type.equals("PERIODIQUE")) {
+        if (e1 instanceof EvenementPeriodique || e2 instanceof EvenementPeriodique) {
             return false; // Simplification abusive
         }
 
-        if (e1.dateDebut.dateDebut().isBefore(fin2) && fin1.isAfter(e2.dateDebut.dateDebut())) {
+        if (e1.dateDebut().dateDebut().isBefore(fin2) && fin1.isAfter(e2.dateDebut().dateDebut())) {
             return true;
         }
         return false;
