@@ -1,3 +1,5 @@
+import valueobjects.*;
+
 public class EvenementPeriodique implements Event{
     private final TitreEvenement titre;
     private final Proprietaire proprietaire;

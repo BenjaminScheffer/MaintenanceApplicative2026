@@ -1,3 +1,4 @@
+import valueobjects.*;
 public interface Event {
     DateEvenement dateDebut();
     DureeEvenement duree();

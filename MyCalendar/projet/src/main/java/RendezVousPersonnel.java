@@ -1,4 +1,7 @@
+import valueobjects.*;
+
 public class RendezVousPersonnel implements Event{
+
     private final TitreEvenement title;
     private final Proprietaire proprietaire;
     private final DateEvenement dateDebut;

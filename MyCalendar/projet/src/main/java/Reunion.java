@@ -1,3 +1,4 @@
+import valueobjects.*;
 public class Reunion implements Event{
     private final TitreEvenement titre;
     private final Proprietaire proprietaire;
