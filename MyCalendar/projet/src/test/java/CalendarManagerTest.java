@@ -8,14 +8,36 @@ import static org.junit.jupiter.api.Assertions.*;
 class CalendarManagerTest {
 
     @Test
-    void testAjoutEvent() {
+    void testAjoutEventReunion() {
         CalendarManager calendarManager = new CalendarManager();
-        calendarManager.ajouterEvent("REUNION","test","Moi",
+        calendarManager.ajouterEventReunion("test","Moi",
                 LocalDateTime.of(2000, 7, 12, 12, 0) // 12/07/2000
-                ,30,"CHEZ MOI","BOB",0);
+                ,30,"CHEZ MOI","BOB");
 
         assertEquals(1,calendarManager.events.size());
-        assertTrue(calendarManager.events.getFirst() instanceof Reunion);
+        assertInstanceOf(Reunion.class, calendarManager.events.getFirst());
+    }
+
+    @Test
+    void testAjoutEventRdv() {
+        CalendarManager calendarManager = new CalendarManager();
+        calendarManager.ajouterEventRendezVousPersonnel("test","Moi",
+                LocalDateTime.of(2000, 7, 12, 12, 0) // 12/07/2000
+                ,30);
+
+        assertEquals(1,calendarManager.events.size());
+        assertInstanceOf(RendezVousPersonnel.class, calendarManager.events.getFirst());
+    }
+
+    @Test
+    void testAjoutEventPeriodique() {
+        CalendarManager calendarManager = new CalendarManager();
+        calendarManager.ajouterEventPeriodique("test","Moi",
+                LocalDateTime.of(2000, 7, 12, 12, 0) // 12/07/2000
+                ,30);
+
+        assertEquals(1,calendarManager.events.size());
+        assertInstanceOf(EvenementPeriodique.class, calendarManager.events.getFirst());
     }
 
     @Test
