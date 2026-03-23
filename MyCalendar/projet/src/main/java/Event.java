@@ -1,17 +1,18 @@
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 public class Event {
     public String type; // "RDV_PERSONNEL", "REUNION", "PERIODIQUE"
-    public String title;
-    public String proprietaire;
-    public LocalDateTime dateDebut;
-    public int dureeMinutes;
-    public String lieu; // utilisé seulement pour REUNION
-    public String participants; // séparés par virgules (pour REUNION uniquement)
-    public int frequenceJours; // uniquement pour PERIODIQUE
+    public TitreEvenement title;
+    public Propietaire proprietaire;
+    public DateEvenement dateDebut;
+    public DureeEvenement dureeMinutes;
+    public Lieu lieu; // utilisé seulement pour REUNION
+    public Participants participants; // séparés par virgules (pour REUNION uniquement)
+    public FrequenceJours frequenceJours; // uniquement pour PERIODIQUE
 
-    public Event(String type, String title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes,
-                 String lieu, String participants, int frequenceJours) {
+    public Event(String type, TitreEvenement title, Propietaire proprietaire, DateEvenement dateDebut, DureeEvenement dureeMinutes,
+                 Lieu lieu, Participants participants, FrequenceJours frequenceJours) {
         this.type = type;
         this.title = title;
         this.proprietaire = proprietaire;

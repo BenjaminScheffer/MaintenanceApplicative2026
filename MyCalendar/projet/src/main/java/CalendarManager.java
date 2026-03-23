@@ -11,7 +11,7 @@ public class CalendarManager {
 
     public void ajouterEvent(String type, String title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes,
                              String lieu, String participants, int frequenceJours) {
-        Event e = new Event(type, title, proprietaire, dateDebut, dureeMinutes, lieu, participants, frequenceJours);
+        Event e = new Event(type, new TitreEvenement(title), new Propietaire(proprietaire), new DateEvenement(dateDebut), new DureeEvenement(dureeMinutes), new Lieu(lieu), new Participants(participants), new FrequenceJours(frequenceJours));
         events.add(e);
     }
 
@@ -19,15 +19,15 @@ public class CalendarManager {
         List<Event> result = new ArrayList<>();
         for (Event e : events) {
             if (e.type.equals("PERIODIQUE")) {
-                LocalDateTime temp = e.dateDebut;
+                LocalDateTime temp = e.dateDebut.dateDebut();
                 while (temp.isBefore(fin)) {
                     if (!temp.isBefore(debut)) {
                         result.add(e);
                         break;
                     }
-                    temp = temp.plusDays(e.frequenceJours);
+                    temp = temp.plusDays(e.frequenceJours.frequenceJours());
                 }
-            } else if (!e.dateDebut.isBefore(debut) && !e.dateDebut.isAfter(fin)) {
+            } else if (!e.dateDebut.dateDebut().isBefore(debut) && !e.dateDebut.dateDebut().isAfter(fin)) {
                 result.add(e);
             }
         }
@@ -35,14 +35,14 @@ public class CalendarManager {
     }
 
     public boolean conflit(Event e1, Event e2) {
-        LocalDateTime fin1 = e1.dateDebut.plusMinutes(e1.dureeMinutes);
-        LocalDateTime fin2 = e2.dateDebut.plusMinutes(e2.dureeMinutes);
+        LocalDateTime fin1 = e1.dateDebut.dateDebut().plusMinutes(e1.dureeMinutes.dureeMinutes());
+        LocalDateTime fin2 = e2.dateDebut.dateDebut().plusMinutes(e2.dureeMinutes.dureeMinutes());
 
         if (e1.type.equals("PERIODIQUE") || e2.type.equals("PERIODIQUE")) {
             return false; // Simplification abusive
         }
 
-        if (e1.dateDebut.isBefore(fin2) && fin1.isAfter(e2.dateDebut)) {
+        if (e1.dateDebut.dateDebut().isBefore(fin2) && fin1.isAfter(e2.dateDebut.dateDebut())) {
             return true;
         }
         return false;
