@@ -1,5 +1,6 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CalendarManager {
@@ -9,21 +10,22 @@ public class CalendarManager {
         this.events = new ArrayList<>();
     }
 
-    public void ajouterEvent(String type, String title, String proprietaire, LocalDateTime dateDebut, int dureeMinutes,
-                             String lieu, String participants, int frequenceJours) {
-        Event e = null;
-        switch(type){
-            case "REUNION":
-                e = new Reunion(new TitreEvenement(title), new Proprietaire(proprietaire), new DateEvenement(dateDebut), new DureeEvenement(dureeMinutes), new Lieu(lieu), new Participants(participants));
-                break;
-            case "PERIODIQUE":
-                e = new EvenementPeriodique(new TitreEvenement(title), new Proprietaire(proprietaire), new DateEvenement(dateDebut), new DureeEvenement(dureeMinutes),new FrequenceJours(frequenceJours));
-                break;
-            case "RDV_PERSONNEL":
-                e = new RendezVousPersonnel(new TitreEvenement(title), new Proprietaire(proprietaire), new DateEvenement(dateDebut), new DureeEvenement(dureeMinutes));
-                break;
-        }
-        events.add(e);
+
+    public void ajouterEventRendezVousPersonnel(String titre, String proprietaire,
+                                  LocalDateTime dateDebut, int duree) {
+        events.add(new RendezVousPersonnel(new TitreEvenement(titre), new Proprietaire(proprietaire), new DateEvenement(dateDebut), new DureeEvenement(duree)));
+    }
+
+    public void ajouterEventReunion(String title, String proprietaire,
+                               LocalDateTime dateDebut, int duree,
+                               String lieu, String participants) {
+        events.add(new Reunion(new TitreEvenement(title), new Proprietaire(proprietaire), new DateEvenement(dateDebut), new DureeEvenement(duree), new Lieu(lieu), new Participants(participants)));
+    }
+
+    public void ajouterEventPeriodique(String titre, String proprietaire,
+                                           LocalDateTime dateDebut, int duree,
+                                           int frequence) {
+        events.add(new EvenementPeriodique(new TitreEvenement(titre), new Proprietaire(proprietaire), new DateEvenement(dateDebut), new DureeEvenement(duree), new FrequenceJours(frequence)));
     }
 
     public List<Event> eventsDansPeriode(LocalDateTime debut, LocalDateTime fin) {
