@@ -35,12 +35,12 @@ public class EvenementPeriodique implements Event{
 
     @Override
     public boolean estDansPeriode(DateEvenement debut, DateEvenement fin) {
-        var temp = dateDebut.dateDebut();
-        while (!temp.isAfter(fin.dateDebut())) {
-            if (!temp.isBefore(debut.dateDebut())) {
+        var temp = dateDebut.valeur();
+        while (!temp.isAfter(fin.valeur())) {
+            if (!temp.isBefore(debut.valeur())) {
                 return true;
             }
-            temp = temp.plusDays(frequence.frequenceJours());
+            temp = temp.plusDays(frequence.valeur());
         }
         return false;
     }

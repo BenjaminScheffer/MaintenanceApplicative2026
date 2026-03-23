@@ -1,7 +1,7 @@
 package valueobjects;
-public record Proprietaire(String proprietaire) {
+public record Proprietaire(String valeur) {
     @Override
     public String toString() {
-        return proprietaire;
+        return valeur;
     }
 }

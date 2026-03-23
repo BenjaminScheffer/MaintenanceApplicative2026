@@ -1,7 +1,7 @@
 package valueobjects;
-public record Participants(String participants) {
+public record Participants(String valeur) {
     @Override
     public String toString() {
-        return participants;
+        return valeur;
     }
 }

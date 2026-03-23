@@ -1,7 +1,7 @@
 package valueobjects;
-public record DureeEvenement (int dureeMinutes){
+public record DureeEvenement (int valeur){
     @Override
     public String toString() {
-        return String.valueOf(dureeMinutes);
+        return String.valueOf(valeur);
     }
 }

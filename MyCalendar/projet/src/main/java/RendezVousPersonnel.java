@@ -33,14 +33,14 @@ public class RendezVousPersonnel implements Event{
 
     @Override
     public boolean estDansPeriode(DateEvenement debut, DateEvenement fin) {
-        return !dateDebut.dateDebut().isBefore(debut.dateDebut())
-                && !dateDebut.dateDebut().isAfter(fin.dateDebut());
+        return !dateDebut.valeur().isBefore(debut.valeur())
+                && !dateDebut.valeur().isAfter(fin.valeur());
     }
 
     @Override
     public boolean estEnConflit(Event autre) {
-        return dateDebut.dateDebut().isBefore(autre.dateDebut().dateDebut().plusMinutes(autre.duree().dureeMinutes()))
-                && dateDebut.dateDebut().plusMinutes(duree.dureeMinutes()).isAfter(autre.dateDebut().dateDebut());
+        return dateDebut.valeur().isBefore(autre.dateDebut().valeur().plusMinutes(autre.duree().valeur()))
+                && dateDebut.valeur().plusMinutes(duree.valeur()).isAfter(autre.dateDebut().valeur());
     }
 
     @Override

@@ -1,7 +1,7 @@
 package valueobjects;
-public record FrequenceJours (int frequenceJours){
+public record FrequenceJours (int valeur){
     @Override
     public String toString() {
-        return String.valueOf(frequenceJours);
+        return String.valueOf(valeur);
     }
 }
