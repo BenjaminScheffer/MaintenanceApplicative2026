@@ -149,4 +149,26 @@ class CalendarManagerTest {
         assertEquals("RDV : Mariage Paul à 2020-11-07T11:00",calendarManager.events.get(6).description());
     }
 
+    @Test
+    void testSupprimerEventParEventId(){
+        CalendarManager calendarManager = new CalendarManager();
+        calendarManager.ajouterEventReunion("id_1","test","Moi",
+                LocalDateTime.of(2000, 7, 12, 12, 0) // 12/07/2000
+                , 30,"CHEZ MOI","BOB");
+        calendarManager.supprimerEvent("id_1");
+        assertEquals(0,calendarManager.events.size());
+    }
+
+    @Test
+    void testAjoutDeuxEventMemeId(){
+        CalendarManager calendarManager = new CalendarManager();
+        calendarManager.ajouterEventReunion("id_1","test","Moi",
+                LocalDateTime.of(2000, 7, 12, 12, 0) // 12/07/2000
+                , 30,"CHEZ MOI","BOB");
+        calendarManager.ajouterEventReunion("id_1","test","Moi",
+                LocalDateTime.of(2000, 7, 12, 12, 0) // 12/07/2000
+                , 30,"CHEZ MOI","BOB");
+        assertEquals(1,calendarManager.events.size());
+    }
+
 }
