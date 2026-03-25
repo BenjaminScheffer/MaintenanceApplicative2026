@@ -176,10 +176,14 @@ public class Main {
                         System.out.print("Durée (en minutes) : ");
                         int duree = Integer.parseInt(scanner.nextLine());
 
-                        calendar.ajouterEventRendezVousPersonnel(id, titre, utilisateur,
+                        boolean estAjouter = calendar.ajouterEventRendezVousPersonnel(id, titre, utilisateur,
                                 LocalDateTime.of(annee, moisRdv, jourRdv, heure, minute), duree);
 
-                        System.out.println("Événement ajouté.");
+                        if(estAjouter){
+                            System.out.println("Événement ajouté.");
+                        }else{
+                            System.out.println("Événement non ajouté car id déjà existant.");
+                        }
                         break;
 
                     case "3":
@@ -213,11 +217,15 @@ public class Main {
                             participants += ", " + scanner.nextLine();
                         }
 
-                        calendar.ajouterEventReunion(id2,titre2, utilisateur,
+                        boolean estAjouter2 = calendar.ajouterEventReunion(id2,titre2, utilisateur,
                                 LocalDateTime.of(annee2, moisRdv2, jourRdv2, heure2, minute2), duree2,
                                 lieu, participants);
 
-                        System.out.println("Événement ajouté.");
+                        if(estAjouter2){
+                            System.out.println("Événement ajouté.");
+                        }else{
+                            System.out.println("Événement non ajouté car id déjà existant.");
+                        }
                         break;
 
                         case "4":
@@ -239,11 +247,14 @@ public class Main {
                         System.out.print("Frequence (en jours) : ");
                         int frequence = Integer.parseInt(scanner.nextLine());
 
-                        calendar.ajouterEventPeriodique(id3, titre3, utilisateur,
+                        boolean estAjouter3 = calendar.ajouterEventPeriodique(id3, titre3, utilisateur,
                                 LocalDateTime.of(annee3, moisRdv3, jourRdv3, heure3, minute3), 0,
                                 frequence);
-
-                        System.out.println("Événement ajouté.");
+                        if(estAjouter3){
+                            System.out.println("Événement ajouté.");
+                        }else{
+                            System.out.println("Événement non ajouté car id déjà existant.");
+                        }
                         break;
 
                     default:

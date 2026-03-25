@@ -11,21 +11,33 @@ public class CalendarManager {
     }
 
 
-    public void ajouterEventRendezVousPersonnel(String id,String titre, String proprietaire,
+    public boolean ajouterEventRendezVousPersonnel(String id,String titre, String proprietaire,
                                   LocalDateTime dateDebut, int duree) {
+        if(this.listContientId(id)){
+            return false;
+        }
         events.add(new RendezVousPersonnel(new EventId(id),new TitreEvenement(titre), new Proprietaire(proprietaire), new DateEvenement(dateDebut), new DureeEvenement(duree)));
+        return true;
     }
 
-    public void ajouterEventReunion(String id,String title, String proprietaire,
+    public boolean ajouterEventReunion(String id,String title, String proprietaire,
                                LocalDateTime dateDebut, int duree,
                                String lieu, String participants) {
+        if(this.listContientId(id)){
+            return false;
+        }
         events.add(new Reunion(new EventId(id),new TitreEvenement(title), new Proprietaire(proprietaire), new DateEvenement(dateDebut), new DureeEvenement(duree), new Lieu(lieu), new Participants(participants)));
+        return true;
     }
 
-    public void ajouterEventPeriodique(String id,String titre, String proprietaire,
+    public boolean ajouterEventPeriodique(String id,String titre, String proprietaire,
                                            LocalDateTime dateDebut, int duree,
                                            int frequence) {
+        if(this.listContientId(id)){
+            return false;
+        }
         events.add(new EvenementPeriodique(new EventId(id),new TitreEvenement(titre), new Proprietaire(proprietaire), new DateEvenement(dateDebut), new DureeEvenement(duree), new FrequenceJours(frequence)));
+        return true;
     }
 
     public List<Event> eventsDansPeriode(LocalDateTime debut, LocalDateTime fin) {
@@ -51,5 +63,13 @@ public class CalendarManager {
                 break;
             }
         }
+    }
+    public boolean listContientId(String id) {
+        for (Event e : events) {
+            if(e.id().valeur().equals(id)){
+                return true;
+            }
+        }
+        return false;
     }
 }
