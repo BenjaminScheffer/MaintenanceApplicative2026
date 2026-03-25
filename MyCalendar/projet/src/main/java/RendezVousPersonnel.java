@@ -2,19 +2,24 @@ import valueobjects.*;
 
 public class RendezVousPersonnel implements Event{
 
+    private final EventId id;
     private final TitreEvenement title;
     private final Proprietaire proprietaire;
     private final DateEvenement dateDebut;
     private final DureeEvenement duree;
 
-    public RendezVousPersonnel(TitreEvenement titre, Proprietaire proprietaire,
+    public RendezVousPersonnel(EventId id,TitreEvenement titre, Proprietaire proprietaire,
                                DateEvenement dateDebut, DureeEvenement duree) {
+
+        this.id = id;
         this.title = titre;
         this.proprietaire = proprietaire;
         this.dateDebut = dateDebut;
         this.duree = duree;
     }
 
+    @Override
+    public EventId id() { return id; }
 
     @Override
     public DateEvenement dateDebut() {
@@ -30,6 +35,7 @@ public class RendezVousPersonnel implements Event{
     public TitreEvenement titre() {
         return title;
     }
+
 
     @Override
     public boolean estDansPeriode(DateEvenement debut, DateEvenement fin) {

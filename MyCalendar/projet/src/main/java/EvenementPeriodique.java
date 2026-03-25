@@ -1,15 +1,19 @@
 import valueobjects.*;
 
 public class EvenementPeriodique implements Event{
+
+    private final EventId id;
     private final TitreEvenement titre;
     private final Proprietaire proprietaire;
     private final DateEvenement dateDebut;
     private final DureeEvenement duree;
     private final FrequenceJours frequence;
 
-    public EvenementPeriodique(TitreEvenement titre, Proprietaire proprietaire,
+    public EvenementPeriodique(EventId id,TitreEvenement titre, Proprietaire proprietaire,
                                DateEvenement dateDebut, DureeEvenement duree,
                                FrequenceJours frequence) {
+
+        this.id = id;
         this.titre = titre;
         this.proprietaire = proprietaire;
         this.dateDebut = dateDebut;
@@ -20,6 +24,8 @@ public class EvenementPeriodique implements Event{
     public FrequenceJours frequenceJours() { return frequence; }
 
     @Override
+    public EventId id() { return id; }
+    @Override
     public DateEvenement dateDebut() { return dateDebut; }
 
     @Override
@@ -27,6 +33,7 @@ public class EvenementPeriodique implements Event{
 
     @Override
     public TitreEvenement titre() { return titre; }
+
 
     @Override
     public String description() {

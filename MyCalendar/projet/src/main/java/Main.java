@@ -159,6 +159,8 @@ public class Main {
 
                     case "2":
                         // Ajout simplifié d'un RDV personnel
+                        System.out.print("Id unique de l'événement : ");
+                        String id = scanner.nextLine();
                         System.out.print("Titre de l'événement : ");
                         String titre = scanner.nextLine();
                         System.out.print("Année (AAAA) : ");
@@ -174,7 +176,7 @@ public class Main {
                         System.out.print("Durée (en minutes) : ");
                         int duree = Integer.parseInt(scanner.nextLine());
 
-                        calendar.ajouterEventRendezVousPersonnel( titre, utilisateur,
+                        calendar.ajouterEventRendezVousPersonnel(id, titre, utilisateur,
                                 LocalDateTime.of(annee, moisRdv, jourRdv, heure, minute), duree);
 
                         System.out.println("Événement ajouté.");
@@ -182,6 +184,8 @@ public class Main {
 
                     case "3":
                         // Ajout simplifié d'une réunion
+                        System.out.print("Id unique de l'événement : ");
+                        String id2 = scanner.nextLine();
                         System.out.print("Titre de l'événement : ");
                         String titre2 = scanner.nextLine();
                         System.out.print("Année (AAAA) : ");
@@ -209,7 +213,7 @@ public class Main {
                             participants += ", " + scanner.nextLine();
                         }
 
-                        calendar.ajouterEventReunion(titre2, utilisateur,
+                        calendar.ajouterEventReunion(id2,titre2, utilisateur,
                                 LocalDateTime.of(annee2, moisRdv2, jourRdv2, heure2, minute2), duree2,
                                 lieu, participants);
 
@@ -218,6 +222,8 @@ public class Main {
 
                         case "4":
                         // Ajout simplifié d'une réunion
+                        System.out.print("Id unique de l'événement : ");
+                        String id3 = scanner.nextLine();
                         System.out.print("Titre de l'événement : ");
                         String titre3 = scanner.nextLine();
                         System.out.print("Année (AAAA) : ");
@@ -233,7 +239,7 @@ public class Main {
                         System.out.print("Frequence (en jours) : ");
                         int frequence = Integer.parseInt(scanner.nextLine());
 
-                        calendar.ajouterEventPeriodique( titre3, utilisateur,
+                        calendar.ajouterEventPeriodique(id3, titre3, utilisateur,
                                 LocalDateTime.of(annee3, moisRdv3, jourRdv3, heure3, minute3), 0,
                                 frequence);
 
